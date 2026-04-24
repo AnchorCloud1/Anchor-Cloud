@@ -1,43 +1,18 @@
-# ============================================================
-# .gitignore — Anchor Cloud
-# ============================================================
-
-# Environment — NEVER commit this
+# --- Security & Secrets ---
 .env
-*.env
+*.db
+*.sqlite
 
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-venv/
-env/
-ENV/
-.venv/
-*.egg-info/
-dist/
-build/
-
-# Vault storage — encrypted blobs (too large + sensitive for git)
+# --- User Data ---
 vault_storage/
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
+# --- Python & Environment ---
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# --- OS System Files ---
 .DS_Store
-
-# Logs
-*.log
-logs/
-
-# Test artifacts
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Jupyter
-.ipynb_checkpoints/
+Thumbs.db
