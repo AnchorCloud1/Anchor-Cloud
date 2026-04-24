@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Anchor Cloud</title>
+    <link rel="shortcut icon" href="/assets/fav.png" type="image/x-icon">
+    <script src="https://www.paypal.com/sdk/js?client-id=AZb-ICa5-4pm50JoOXIxO2ng9l7V-LH83-6D2KMxk329qUfx0cLxchS1tLK-keGPAKZgGdYrwEO3sxMq&currency=USD"></script>
+    <style>
+        :root {
+            --bg:          #020617;
+            --surface:     #0f172a;
+            --surface-2:   #1e293b;
+            --text-1:      #f1f5f9;
+            --text-2:      #94a3b8;
+            --accent:      #38bdf8;
+            --border:      rgba(56,189,248,0.12);
+            --radius-md:   12px;
+            --font:        'Plus Jakarta Sans', sans-serif;
+        }
+
+        body { 
+            font-family: var(--font); background: var(--bg); color: var(--text-1); 
+            margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            position: relative; overflow: scroll; 
+        }
+
+        /* The Grid Pattern */
+        body::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1; opacity: 0.3;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .checkout-container { 
+            background: rgba(15, 23, 42, 0.7); 
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 40px; border-radius: var(--radius-md); 
+            width: 100%; max-width: 400px; border: 1px solid var(--border); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            text-align: center;
+        }
+
+        h2 { margin-top: 0; }
+        p { color: var(--text-2); margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="checkout-container">
+    <h2>Upgrade to Pro</h2>
+    <p>Securely complete your subscription via PayPal.</p>
+
+    <div id="paypal-button-container"></div>
+</div>
+
+<script>
+    paypal.Buttons({
+        // 1. Create Order
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{ amount: { value: '9.99' } }]
+            });
+        },
+        // 2. Capture Payment
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Call your Python backend to finalize the upgrade
+                fetch('http://localhost:8000/process-mock-payment', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ 
+                        plan: 'pro', 
+                        status: 'success' 
+                    })
+                }).then(() => {
+                    alert('Transaction successful! Redirecting...');
+                    window.location.href = '/dashboard';
+                });
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+</body>
+</html>
