@@ -23,7 +23,7 @@ from auth import (
 )
 from crypto import hash_password
 from file_service import (
-    upload_file_service, download_file_service,
+    upload_file_service,
     delete_file_service, list_files_service,
     get_vault_messages_service,
 )

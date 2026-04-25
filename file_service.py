@@ -5,6 +5,20 @@ from sqlalchemy.orm import Session
 from database import FileRecord, VaultMessage, new_uuid, now_utc
 from backend.config import settings
 
+def download_file_service(file_id, current_user, db: Session):
+    # 1. Find the file record in the database
+    file_record = db.query(FileRecord).filter(
+        FileRecord.id == file_id, 
+        FileRecord.owner_id == current_user.id
+    ).first()
+    
+    # 2. Check if file exists and verify ownership
+    if not file_record:
+        return None
+    
+    # 3. Return the record and the path
+    return file_record
+
 def upload_file_service(file, current_user, db: Session):
     file_id = new_uuid()
     message_id = new_uuid()
