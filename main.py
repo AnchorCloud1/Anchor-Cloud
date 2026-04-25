@@ -27,7 +27,7 @@ from file_service import (
     delete_file_service, list_files_service,
     get_vault_messages_service,
 )
-from schemas import (
+from backend.schemas import (
     RegisterRequest, LoginRequest, TokenResponse,
     UserProfile, FileUploadResponse, FileListResponse,
     FileListItem, FileDeleteResponse,
