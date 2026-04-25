@@ -36,5 +36,22 @@ class TokenResponse(BaseModel):
 class UserProfile(BaseModel):
     id: str
     username: str
-    email: str
-    # Add any other fields you need here    
+    email: str   
+
+class FileDeleteResponse(BaseModel):
+    message: str
+    file_id: str
+
+class VaultMessageOut(BaseModel):
+    id: str
+    sender_id: str
+    message_type: str
+    payload_summary: str
+    created_at: datetime
+
+class VaultMessageListResponse(BaseModel):
+    total: int
+    messages: list[VaultMessageOut]
+
+class HealthResponse(BaseModel):
+    status: str
