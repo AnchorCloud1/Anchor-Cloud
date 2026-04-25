@@ -74,3 +74,11 @@ def delete_file_service(file_id, current_user, db: Session):
         record.is_deleted = True
         record.deleted_at = now_utc()
         db.commit()
+
+def download_file_service(file_id, current_user, db: Session):
+    # Find the file record
+    record = db.query(FileRecord).filter(
+        FileRecord.id == file_id, 
+        FileRecord.owner_id == current_user.id
+    ).first()
+    return record
