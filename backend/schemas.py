@@ -32,3 +32,9 @@ class LoginRequest(BaseModel):
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str
+
+class UserProfile(BaseModel):
+    id: str
+    username: str
+    email: str
+    # Add any other fields you need here    
