@@ -8,6 +8,14 @@ Anchor Cloud is a professional-grade cloud storage platform that prioritizes pri
 
 ---
 
+## 📱 App Feature
+
+* **Cross-Platform App:** Still in Development
+* **Website:** https://www.anchorcloud.org
+> *The App Will be Available for every device, and it's will be released as soon as possible.*
+
+---
+
 ## 🏗 Key Features
 
 * **Zero-Knowledge Encryption:** Files are encrypted using AES-256-EAX before upload. The server never sees plaintext files or encryption keys.

@@ -331,7 +331,7 @@ def get_vault_messages(
 
 
 # ════════════════════════════════════════════════════════════
-# DEV ONLY
+# DEV ONLY (Replace this section at the bottom of your main.py)
 # ════════════════════════════════════════════════════════════
 
 if settings.APP_ENV == "development":
@@ -350,29 +350,8 @@ if settings.APP_ENV == "development":
         return {"detail": "Database wiped."}
 
     @app.post("/process-mock-payment", tags=["Dev"])
-    def process_mock_payment(request: Request, db: Session = Depends(get_db)):
-        return {"status": "success", "message": "Pro features unlocked"}
-    
-
-    @app.route('/process-mock-payment', methods=['POST'])
     def process_mock_payment():
-    # Simulate a delay (for the 'pro' feel)
+        # Simulate a delay
         import time
         time.sleep(1.5) 
-        try:
-            return jsonify({"status": "success", "message": "Pro features unlocked"}), 200
-        except Exception as e:
-            return jsonify({"status": "error", "message": str(e)}), 500
-        
-    @app.route('/process-mock-payment', methods=['POST'])
-    def process_mock_payment():
-        data = request.get_json()
-        method = data.get('method')
-        plan = data.get('plan')
-    
-        import time
-        time.sleep(2)
-    
-        print(f"--- DEMO MODE: Processing {plan} payment via {method} ---")
-    
-        return jsonify({"status": "success", "message": f"Processed via {method}"}), 200
+        return {"status": "success", "message": "Pro features unlocked"}
